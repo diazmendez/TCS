@@ -1,0 +1,37 @@
+
+
+ Options +Indexes
+
+# RewriteEngine on
+ RewriteRule ^\w+/*$ index.php
+ RewriteRule ^archive/(\d+)/*(\d+)*/*(\d+)*/*$ index.php?vol=$1&issue=$2&page=$3
+
+ <Files *.pdf>
+     Header set Accept-Ranges none
+ </Files>
+
+ #DirectoryIndex home.html index.html index.htm index.php
+
+
+
+# ********** SOLVING THE FACEBOOK fbclid REQUEST
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{QUERY_STRING} ^(.*?)(&?fbclid=[a-zA-Z0-9_-]+)$
+  RewriteRule ^(.*)$ /$1?%1 [L,NE,R=301]
+</IfModule>
+#***********
+
+
+
+
+
+
+
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELLOW SSL_REDIRECT:cubanscientist.org
+RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} (www\.)?cubanscientist.org
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# DO NOT REMOVE THIS LINE AND THE LINES BELLOW SSL_REDIRECT:cubanscientist.org
